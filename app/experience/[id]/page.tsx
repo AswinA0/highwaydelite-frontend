@@ -1,12 +1,10 @@
 "use client";
-import { useEffect, useState, Suspense } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 import Image from "next/image";
 import Navbar from "../../../components/navbar";
 import { useAuth } from "../../../context/AuthContext";
-
-export const dynamic = "force-dynamic";
 
 interface PackageDetails {
   id: string;
@@ -30,10 +28,16 @@ interface Coupon {
   validUntil: string;
 }
 
-function ExperienceDetailsContent() {
-  const params = useParams();
+export default function ExperienceDetails() {
   const router = useRouter();
-  const { id } = params;
+  const [id] = useState<string>(() => {
+    // Get ID from URL path on client side only
+    if (typeof window !== "undefined") {
+      const pathParts = window.location.pathname.split("/");
+      return pathParts[pathParts.length - 1];
+    }
+    return "";
+  });
   const [packageData, setPackageData] = useState<PackageDetails | null>(null);
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   const [loading, setLoading] = useState(true);
@@ -491,27 +495,5 @@ function ExperienceDetailsContent() {
         </div>
       </div>
     </div>
-  );
-}
-
-export default function ExperienceDetails() {
-  return (
-    <Suspense
-      fallback={
-        <div>
-          <Navbar />
-          <div className="container mx-auto px-4 py-8">
-            <div className="animate-pulse">
-              <div className="w-full h-96 bg-gray-300 rounded-lg mb-6"></div>
-              <div className="h-8 bg-gray-300 rounded w-1/2 mb-4"></div>
-              <div className="h-4 bg-gray-300 rounded w-full mb-2"></div>
-              <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-            </div>
-          </div>
-        </div>
-      }
-    >
-      <ExperienceDetailsContent />
-    </Suspense>
   );
 }
