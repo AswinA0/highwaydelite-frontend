@@ -4,6 +4,8 @@ import Card from "../components/card";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+export const dynamic = "force-dynamic";
+
 interface Experience {
   id: string;
   title: string;

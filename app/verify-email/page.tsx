@@ -4,6 +4,8 @@ import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 function VerifyEmailContent() {
   const [status, setStatus] = useState<"loading" | "success" | "error">(
     "loading"

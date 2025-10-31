@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export default function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");

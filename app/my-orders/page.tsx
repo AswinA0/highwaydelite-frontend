@@ -6,6 +6,8 @@ import Navbar from "../../components/navbar";
 import { useAuth } from "../../context/AuthContext";
 import Image from "next/image";
 
+export const dynamic = "force-dynamic";
+
 interface Package {
   id: string;
   title: string;
